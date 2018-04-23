@@ -1,1 +1,1 @@
-"# 1nicerbotPublic" 
+"# 1nicerbot" 
