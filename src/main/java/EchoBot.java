@@ -44,7 +44,13 @@ public class EchoBot extends TelegramLongPollingBot {
             //return message.substring(8);
         }else if(message.matches("(?i)legende")){
             //zeigt die legende
-            return "Legende: \n \"mirror:\"  Spiegelt den Text nach dem Schlüsselwort \n \"echo:\"  Wiederholt die Nachricht nach dem Schlüsselwort";
+            return "Legende: \n \"mirror:\"  Spiegelt den Text nach dem Schlüsselwort \n \"echo:\"  Wiederholt die Nachricht nach dem Schlüsselwort \n\n" +
+                    "Währungsrechner beispiele: \n" +
+                    "\"Wie viel sind 10 EUR in USD?\"\n" +
+                    "\"Ich würde gerne 25,50 USD wechseln, wieviel GBP bekomme ich dafür?\"\n" +
+                    "\"Ich habe 13,25 JPY wieviel ist das in EUR?\"\n" +
+                    "Unterstützte Währungen:\n" +
+                    "EUR, JPY, GBP, USD, CHF, CAD, CNY, AUD";
         }else if(message.matches("(?i)(Wieviel|wie viel) (sind|ist) .* *.in.* *.?") || message.matches("(?i)ich habe .* *.(wieviel|wie viel).* *.?") ||
                 message.matches("(?i)Ich (würde|möchte|will) .* *.wechseln.* *.(wieviel|wie viel).* *.?")){
             BotLogic botLogic = new BotLogic();
