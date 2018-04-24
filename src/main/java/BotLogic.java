@@ -97,7 +97,7 @@ public class BotLogic {
 
         return result;
     }
-   //die texteingabe wird auf währungs schlüsselwörter untersucht, die gefundenen werden dann in ein format zur weitergabe an den apicall umgewandelt
+    //die texteingabe wird auf währungs schlüsselwörter untersucht, die gefundenen werden dann in ein format zur weitergabe an den apicall umgewandelt
     public String currPairs(String text, String[] regex) {
         //array für die position der währung
         int position[] = new int[2];
@@ -106,46 +106,54 @@ public class BotLogic {
         //checkt alle währungen
         for(int i=0; i<currencies.length;i++){
             //sucht regex matches
-            Pattern pattern = Pattern.compile(regex[i]);
+            Pattern pattern = Pattern.compile("(?i)(EUR|JPY|GBP|USD|CHF|CAD|CNY|AUD|\\$|\\€)");
             Matcher matcher = pattern.matcher(text);
             //gibt alle erfolgreichen matches aus
             while (matcher.find() && x<matches.length) {
                 System.out.println(matcher.group());
-                System.out.println(matcher.start());
+                //System.out.println(matcher.start());
                 position[x]=matcher.start();
+                matches[x] = matcher.group();
                 //gibt den gefundenen währungen eine nummer
-                if(matcher.group().matches("(?i)(EUR|\\€)")){
-                    matches[x] = "EUR";
-                }else if(matcher.group().matches("(?i)JPY")){
-                    matches[x] = "JPY";
-                }else if(matcher.group().matches("(?i)GBP")){
-                    matches[x] = "GBP";
-                }else if(matcher.group().matches("(?i)(USD|\\$)")){
-                    matches[x] = "USD";
-                }else if(matcher.group().matches("(?i)CHF")){
-                    matches[x] = "CHF";
-                }else if(matcher.group().matches("(?i)CAD")){
-                    matches[x] = "CAD";
-                }else if(matcher.group().matches("(?i)CNY")){
-                    matches[x] = "CNY";
-                }else if(matcher.group().matches("(?i)AUD")){
-                    matches[x] = "AUD";
-                }
                 x++;
             }
         }
 
+
+        for (int i=0;i<matches.length;i++){
+            if(matches[i].matches("(?i)(EUR|\\€)")){
+                matches[i] = "EUR";
+            }else if(matches[i].matches("(?i)JPY")){
+                matches[i] = "JPY";
+            }else if(matches[i].matches("(?i)GBP")){
+                matches[i] = "GBP";
+            }else if(matches[i].matches("(?i)(USD|\\$)")){
+                matches[i] = "USD";
+            }else if(matches[i].matches("(?i)CHF")){
+                matches[i] = "CHF";
+            }else if(matches[i].matches("(?i)CAD")){
+                matches[i] = "CAD";
+            }else if(matches[i].matches("(?i)CNY")){
+                matches[i] = "CNY";
+            }else if(matches[i].matches("(?i)AUD")){
+                matches[i] = "AUD";
+            }
+        }
+
+        System.out.println("arr: "+matches[0]);
+        System.out.println("arr: "+matches[1]);
+
         if(position[0]>position[1]){
             String swapper = matches[0];
-           matches[0] = matches[1];
+            matches[0] = matches[1];
             matches[1] = swapper;
         }
-     //das array wird in ein String zusammengefasst, welcher an den API call angeheftet wird
+        //das array wird in ein String zusammengefasst, welcher an den API call angeheftet wird
         StringBuilder result = new StringBuilder();
         result.append(matches[0]);
         result.append("/");
         result.append(matches[1]);
-         String r = result.toString();
+        String r = result.toString();
         System.out.println(r);
         return r;
     }
